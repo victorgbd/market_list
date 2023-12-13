@@ -30,8 +30,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<String> a = ['ramon', 'pedro', 'juan', 'victor'];
+  late List<String> b;
+
+  @override
+  void initState() {
+    b = a;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    void buscar(String nombre) {
+      b = a.where((element) => element.contains(nombre)).toList();
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xfffaf443),
@@ -50,7 +63,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   child: TextField(
                     cursorColor: Colors.yellow[800],
-                    decoration: InputDecoration(
+                    onChanged: (value) {
+                      setState(() {
+                        buscar(value);
+                      });
+                    },
+                    decoration: const InputDecoration(
                       hintText: "Buscar producto",
                       prefixIcon: Icon(Icons.search),
                       errorBorder: InputBorder.none,
@@ -69,14 +87,14 @@ class _MyHomePageState extends State<MyHomePage> {
           // physics: BouncingScrollPhysics(),
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           itemBuilder: (context, index) {
-            return const Card(
+            return Card(
               child: Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text("cuca", style: TextStyle(fontSize: 20.0)),
+                child: Text(b[index], style: TextStyle(fontSize: 20.0)),
               ),
             );
           },
-          itemCount: 30),
+          itemCount: b.length),
     );
   }
 }
