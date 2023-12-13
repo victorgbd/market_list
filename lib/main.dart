@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
             return const Card(
               child: Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text("toto", style: TextStyle(fontSize: 20.0)),
+                child: Text("cuca", style: TextStyle(fontSize: 20.0)),
               ),
             );
           },
