@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     horizontal: 5.0,
                   ),
                   child: TextField(
-                    cursorColor: Colors.yellow[800],
+                    cursorColor: Colors.yellow[700],
                     onChanged: (value) {
                       setState(() {
                         buscar(value);
