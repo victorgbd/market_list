@@ -18,6 +18,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   sqflite: ^2.3.0
   cached_network_image: ^3.3.0
+  flutter_riverpod: ^2.4.9
 
 dev_dependencies:
   flutter_test:

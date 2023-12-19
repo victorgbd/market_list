@@ -68,11 +68,11 @@ class DatabaseList {
   Future<List<Producto>> getAllOfertas() async {
     final db = await instance.database;
 //     await db.rawInsert(
-//         '''INSERT INTO producto (nombre,image_url) VALUES ('Producto A','https://frajosfood.com/55145-medium_default/22206-supra-cloro-bleach-64-fl-oz-case-of-8-box-8-units.jpg'),
-//         ('Producto B','https://walmarthn.vtexassets.com/arquivos/ids/302982/Jam-n-De-Pavo-Marca-Toledo-230gr-1-7809.jpg?v=638251727403800000'),
-//         ('Producto C','https://super100rd.com/wp-content/uploads/2022/10/119761-1.png'),
-//         ('Producto D','https://green.com.do/wp-content/uploads/2017/03/Platano-barahonero-1.jpg'),
-//         ('Producto E','https://supermercadosnacional.com/media/catalog/product/cache/fde49a4ea9a339628caa0bc56aea00ff/2/2/2204866-1.jpg');''');
+//         '''INSERT INTO producto (nombre,image_url) VALUES ('Cloro','https://frajosfood.com/55145-medium_default/22206-supra-cloro-bleach-64-fl-oz-case-of-8-box-8-units.jpg'),
+//         ('Jamón','https://walmarthn.vtexassets.com/arquivos/ids/302982/Jam-n-De-Pavo-Marca-Toledo-230gr-1-7809.jpg?v=638251727403800000'),
+//         ('Huevos','https://super100rd.com/wp-content/uploads/2022/10/119761-1.png'),
+//         ('Plátano','https://green.com.do/wp-content/uploads/2017/03/Platano-barahonero-1.jpg'),
+//         ('Salami','https://supermercadosnacional.com/media/catalog/product/cache/fde49a4ea9a339628caa0bc56aea00ff/2/2/2204866-1.jpg');''');
 //     await db.rawInsert('''INSERT INTO supermercado (nombre,direccion) VALUES
 //         ('Supermercado la yali','frende donde cuca'),
 //         ('Supermercado Era','al lado de marino');''');
@@ -121,5 +121,22 @@ class DatabaseList {
     }
 
     return productos;
+  }
+
+  Future<List<Supermercado>> getAllSuper() async {
+    final db = await instance.database;
+
+    final resultSupermercados = await db.rawQuery('''
+      SELECT * from supermercado;
+''');
+    List<Supermercado> supermercados = [];
+    for (var elemento in resultSupermercados) {
+      supermercados.add(Supermercado(
+          id: elemento['id'] as int,
+          nombre: elemento['nombre'] as String,
+          direccion: elemento['direccion'] as String));
+    }
+
+    return supermercados;
   }
 }

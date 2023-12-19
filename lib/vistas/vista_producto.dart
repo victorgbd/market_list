@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import 'package:market_list/entidades/entidad_producto.dart';
+import '../entidades/entidad_producto.dart';
 
 class VistaProducto extends StatefulWidget {
   final Producto producto;
@@ -21,19 +21,19 @@ class _VistaProductoState extends State<VistaProducto> {
       appBar: AppBar(title: Text(widget.producto.nombre)),
       body: SingleChildScrollView(
         child: Column(children: [
-          SizedBox(
+          CachedNetworkImage(
             height: 300,
             width: 300,
-            child: Card(
-              elevation: 2,
-              child: CachedNetworkImage(
-                fit: BoxFit.contain,
-                imageUrl: widget.producto.imagenUrl,
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    CircularProgressIndicator(value: downloadProgress.progress),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+            imageUrl: widget.producto.imagenUrl,
+            imageBuilder: (context, imageProvider) =>
+                Card(elevation: 2, child: Image(image: imageProvider)),
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                Center(
+              child: CircularProgressIndicator(
+                value: downloadProgress.progress,
               ),
             ),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
           const Text("Oferta"),
           ListView.builder(
