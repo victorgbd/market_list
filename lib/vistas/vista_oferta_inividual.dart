@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:market_list/vistas/controlador.dart';
+import 'package:market_list/controladores/productos_controlador.dart';
 import '../vistas/vista_producto.dart';
 
 import '../entidades/entidad_producto.dart';

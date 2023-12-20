@@ -1,99 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:market_list/vistas/lista_de_compra.dart';
-import 'package:market_list/vistas/vista_producto_multiple.dart';
-import '../vistas/vista_oferta_inividual.dart';
-import 'entidades/entidad_producto.dart';
+// import 'package:market_list/database.dart';
+import 'package:market_list/vistas/login.dart';
 
-List<Producto> listCalculado = [];
+final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  @override
+  void initState() {
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    //   DatabaseList.instance.initInsert();
+    // });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'MarketList',
       debugShowCheckedModeBanner: false,
+      scaffoldMessengerKey: scaffoldMessengerKey,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    super.key,
-  });
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const ListaDeCompra(),
-          ));
-        },
-        child: const Icon(Icons.assignment),
-      ),
-      body: SafeArea(
-        child: GridView(
-            padding:
-                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2),
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const VistaIndivudiales(),
-                  ));
-                },
-                child: const Card(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.sell_outlined, size: 100),
-                        Text("Ver Ofertas Individuales")
-                      ]),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const VistaMultiple(),
-                  ));
-                },
-                child: const Card(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.shopping_cart_outlined, size: 100),
-                        Text("Agregar artículos")
-                      ]),
-                ),
-              ),
-            ]),
-      ),
+      home: const VistaLogin(),
     );
   }
 }

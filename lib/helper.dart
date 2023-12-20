@@ -3,7 +3,6 @@ import 'package:market_list/entidades/super_grupo.dart';
 
 import 'entidades/entidad_oferta.dart';
 import 'entidades/entidad_producto.dart';
-import 'main.dart';
 
 bool todosTienenLaMismaCantidad(List<SupermercadoAgrupado> listaSupermercados) {
   // Verificar si la lista está vacía o tiene un solo elemento
@@ -24,7 +23,8 @@ bool todosTienenLaMismaCantidad(List<SupermercadoAgrupado> listaSupermercados) {
   return true; // Todos tienen la misma cantidad
 }
 
-Future<List<SupermercadoAgrupado>> superGroup() async {
+Future<List<SupermercadoAgrupado>> superGroup(
+    List<Producto> listaSeleccionado) async {
   final supermercados = await DatabaseList.instance.getAllSuper();
 
   List<SupermercadoAgrupado> supermercadosagrupado = [];
@@ -32,7 +32,7 @@ Future<List<SupermercadoAgrupado>> superGroup() async {
     List<Producto> productos = [];
     List<Oferta> ofertas = [];
     double total = 0;
-    for (var listprod in listCalculado) {
+    for (var listprod in listaSeleccionado) {
       for (var oferta in listprod.ofertas) {
         if (oferta.supermercado.id == supermercado.id) {
           productos.add(listprod);

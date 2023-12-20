@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:market_list/main.dart';
 
 import '../entidades/entidad_producto.dart';
-import 'controlador.dart';
+import '../controladores/lista_controlador.dart';
+import '../controladores/productos_controlador.dart';
 
 final _searchRequestsProvider = StateProvider.autoDispose<String>(
   (ref) => '',
@@ -27,7 +27,8 @@ class VistaMultiple extends ConsumerStatefulWidget {
 class _VistaMultipleState extends ConsumerState<VistaMultiple> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      // ref.read(listaProductosControllerProvider.notifier).getList(1);
       ref.read(productosControllerProvider.notifier).getAllOfertas();
     });
     super.initState();
@@ -38,6 +39,7 @@ class _VistaMultipleState extends ConsumerState<VistaMultiple> {
     final productosState = ref.watch(productosControllerProvider);
     final productosFiltrados =
         ref.watch(_filterRequestsProvider(productosState.productos));
+    final listaState = ref.watch(listaProductosControllerProvider);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xfffaf443),
@@ -88,8 +90,10 @@ class _VistaMultipleState extends ConsumerState<VistaMultiple> {
                       final producto = productosFiltrados[index];
                       return GestureDetector(
                         onTap: () {
-                          if (!listCalculado.contains(producto)) {
-                            listCalculado.add(producto);
+                          if (!listaState.listaDeProductos.contains(producto)) {
+                            ref
+                                .read(listaProductosControllerProvider.notifier)
+                                .addToList(producto);
                           }
                         },
                         child: Card(
