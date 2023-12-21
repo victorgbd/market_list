@@ -37,6 +37,7 @@ class _ListaDeCompraState extends ConsumerState<ListaDeCompra> {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   itemCount: snapshot.data!.length,
                   shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
                     final supermercadoAgrupado = snapshot.data![index];
 
@@ -68,6 +69,7 @@ class _ListaDeCompraState extends ConsumerState<ListaDeCompra> {
           ),
           ListView.builder(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               itemBuilder: (context, index) {
                 // print(
